@@ -1,0 +1,29 @@
+#!/bin/bash
+
+CONFIG_FILE="/usr/local/etc/xray/config.json"
+
+# Получаем список email пользователей
+USERS=$(jq -r '.inbounds[0].settings.clients[].email' $CONFIG_FILE)
+
+if [ -z "$USERS" ]; then
+    echo "Пользователи не найдены."
+    exit
+fi
+
+echo "--- Выберите пользователя для УДАЛЕНИЯ ---"
+select user_name in $USERS "Отмена"; do
+    if [ "$user_name" = "Отмена" ]; then exit; fi
+    if [ -n "$user_name" ]; then
+        # Удаляем объект, где email совпадает с выбранным
+        TMP=$(mktemp)
+        jq "del(.inbounds[0].settings.clients[] | select(.email == \"$user_name\"))" $CONFIG_FILE > "$TMP" && mv "$TMP" $CONFIG_FILE
+
+        echo "Пользователь $user_name удален."
+        echo "Перезапуск Xray..."
+        systemctl restart xray
+        echo "Готово."
+        break
+    fi
+done
+
+chmod 644 $CONFIG_FILE
