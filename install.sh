@@ -6,7 +6,7 @@ GITHUB_REPO="my-xray-scripts"
 BRANCH="main" # или master
 # ====================
 
-BASE_URL="https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}"
+BASE_URL="https://raw.githubusercontent.com/refs/heads/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}"
 INSTALL_DIR="/usr/local/bin"
 
 echo "--- Установка скриптов управления Xray ---"
