@@ -3,10 +3,10 @@
 # ===== НАСТРОЙКИ =====
 GITHUB_USER="659121"
 GITHUB_REPO="my-xray-scripts"
-BRANCH="main" # или master
+BRANCH="main"
 # ====================
 
-BASE_URL="https://raw.githubusercontent.com/refs/heads/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}"
+BASE_URL="https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/refs/heads/${BRANCH}"
 INSTALL_DIR="/usr/local/bin"
 
 echo "--- Установка скриптов управления Xray ---"
